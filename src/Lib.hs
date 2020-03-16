@@ -63,18 +63,27 @@ lab3 = do
           n2 = (floor :: Float -> Int) $ fromIntegral (length signal) / 2
   putStrLn . unlines . map show $ signal
   printTwoLists spectral_dft spectral_fft
-  print . length $ spectral_dft
-  print . length $ spectral_fft
   plotLists
     [ Key Nothing
     , XLabel "Time"
     , YLabel "Value"
-    , Title "Random signal and its spectre"
-    , terminal (PNG.cons "./output.png")
+    , Title "Random signal"
+    , terminal (PNG.cons "signal.png")
     ]
-    [ signal
-    , map realPart spectral_dft
-    , map imagPart spectral_dft
-    , map realPart spectral_fft
-    , map imagPart spectral_fft
+    [signal]
+  plotLists
+    [ Key Nothing
+    , XLabel "Time"
+    , YLabel "Value"
+    , Title "DFT"
+    , terminal (PNG.cons "dft.png")
     ]
+    [map realPart spectral_dft, map imagPart spectral_dft]
+  plotLists
+    [ Key Nothing
+    , XLabel "Time"
+    , YLabel "Value"
+    , Title "FFT"
+    , terminal (PNG.cons "fft.png")
+    ]
+    [map realPart spectral_fft, map imagPart spectral_fft]
